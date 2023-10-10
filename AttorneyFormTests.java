@@ -1,11 +1,11 @@
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.*;
 
 public class AttorneyFormTests{
-    
     @Test
     public void test1(){
-
+        AttorneyForm af = new AttorneyForm("Bob", "5503 Main Street", "Jim Smith", 123, 42488273);
+        assertTrue("Is true", true);
     }
 }

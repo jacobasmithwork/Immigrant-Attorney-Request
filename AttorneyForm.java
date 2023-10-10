@@ -11,7 +11,8 @@ public class AttorneyForm{
         this.address = address;
         this.attorneyName = attorneyName;
         this.immId = immId;
-        
+        this.phoneNum = phoneNum;
+        this.status = 1;
     }
 
     public void setName(String name) {
