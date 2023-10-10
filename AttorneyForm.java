@@ -5,6 +5,15 @@ public class AttorneyForm{
     public int immId;
     public int phoneNum;
     public int status;
+
+    public AttorneyForm(String name, String address, String attorneyName, int immId, int phoneNum){
+        this.name = name;
+        this.address = address;
+        this.attorneyName = attorneyName;
+        this.immId = immId;
+        
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -41,4 +50,6 @@ public class AttorneyForm{
     public int getStatus() {
         return status;
     }
+
+    
 }
