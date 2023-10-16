@@ -9,7 +9,7 @@ public class AttorneyForm{
     public AttorneyForm(String name, String address, String attorneyName, int immId, int phoneNum){
         this.name = name;
         this.address = address;
-        this.attorneyName = attorneyName;
+        this.attorneyName = attorneyName; 
         this.immId = immId;
         this.phoneNum = phoneNum;
         this.status = 1;
@@ -53,4 +53,4 @@ public class AttorneyForm{
     }
 
     
-}
+}// doing a commit
