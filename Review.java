@@ -11,6 +11,10 @@ public class Review {
         //update workflow 
     }
 
+    public void getNextReview(){
+        attorneyForm = Workflow.readyToReview[0]; //etc.
+    }
+
     public void checkImmId(){
         //do this
     }
