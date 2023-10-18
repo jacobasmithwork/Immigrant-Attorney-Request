@@ -1,7 +1,9 @@
 public class Review {
     
     public Review(){
-        //check for errors etc...
+        //check workflow for next AttorneyForm in ReviewQueue
+        //check and validate each field
+        //update workflow 
 
     }
 
