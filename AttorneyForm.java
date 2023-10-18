@@ -1,20 +1,22 @@
 public class AttorneyForm{
-    public String name;
-    public String address;
-    public String attorneyName;
-    public int immId;
-    public int phoneNum;
-    public int status;
-
-    public AttorneyForm(String name, String address, String attorneyName, int immId, int phoneNum){
+    public String name; //Immigrant's Name
+    public String address; //Immigrant's Address
+    public String attorneyName; //Attorney's name
+    public String comments;  //Comments for between steps
+    public long phoneNum; //Attorney's Phone number
+    public int immId; //Immigrant ID
+    public int status; //Form's status through the workflow
+    
+    public AttorneyForm(String name, String address, String attorneyName, int immId, long phoneNum){
         this.name = name;
         this.address = address;
         this.attorneyName = attorneyName; 
         this.immId = immId;
         this.phoneNum = phoneNum;
         this.status = 1;
+        this.comments = "";
     }
-
+    
     public void setName(String name) {
         this.name = name;
     }
@@ -27,12 +29,16 @@ public class AttorneyForm{
     public void setImmId(int immId) {
         this.immId = immId;
     }
-    public void setPhoneNum(int phoneNum) {
+    public void setPhoneNum(long phoneNum) {
         this.phoneNum = phoneNum;
     }
     public void setStatus(int status) {
         this.status = status;
     }
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+    
     public String getName() {
         return name;
     }
@@ -45,12 +51,16 @@ public class AttorneyForm{
     public int getImmId() {
         return immId;
     }
-    public int getPhoneNum() {
+    public long getPhoneNum() {
         return phoneNum;
     }
     public int getStatus() {
         return status;
     }
+    public String getComments() {
+        return this.comments;
+    }
+
 
     
-}// doing a commit
+}
