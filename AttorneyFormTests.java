@@ -1,5 +1,8 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.beans.Transient;
+
 import org.junit.*;
 
 public class AttorneyFormTests{
