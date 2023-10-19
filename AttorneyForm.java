@@ -86,13 +86,16 @@ public class AttorneyForm{
         }
         if(status == 1){
             //place in review
-            Workflow.readyToReview.add(status, null);
+            Workflow.readyToReview.add(this.formId);
+            sendToDb();
         }
         else if(status == 2){ //dont see this being necessary
             //place in approval
-            Workflow.readyToReview.add(status, null);
+            Workflow.readyToReview.add(this.formId);
+            sendToDb();
         }
         else{
+            sendToDb();
             //save in database for later editing - if status is unchanged, the form is not submitted
         } 
          
