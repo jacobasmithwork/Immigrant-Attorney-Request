@@ -16,7 +16,7 @@ public class AttorneyForm{
         this.attorneyName = attorneyName; 
         this.immId = immId;
         this.phoneNum = phoneNum;
-        this.status = 1;
+        this.status = 0;
         this.comments = new ArrayList<String>();
     }
     //Constructor if formId is known (issues with Integer vs int?)
@@ -26,7 +26,7 @@ public class AttorneyForm{
         this.attorneyName = attorneyName; 
         this.immId = immId;
         this.phoneNum = phoneNum;
-        this.status = 1;
+        this.status = 0;
         this.comments = new ArrayList<String>();
         this.formId = formId;
     }
@@ -79,8 +79,23 @@ public class AttorneyForm{
         comments.add(comment);
     }
     
-    public void sendToWf(int status){ //1 = send to review queue, 2 = send to approve queue
-        
+    public void sendToWf(int status){ //0 = in DE, 1 = send to review queue, 2 = send to approve queue
+        this.status = status;
+        if(status > 2 || status < 0){
+            //invalid status input
+        }
+        if(status == 1){
+            //place in review
+            Workflow.readyToReview.add(status, null);
+        }
+        else if(status == 2){ //dont see this being necessary
+            //place in approval
+            Workflow.readyToReview.add(status, null);
+        }
+        else{
+            //save in database for later editing - if status is unchanged, the form is not submitted
+        } 
+         
     }
 
     public void sendToDb(){
