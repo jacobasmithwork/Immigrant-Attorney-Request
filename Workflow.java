@@ -14,13 +14,13 @@ public class Workflow{
         return readyToReview;
     }
 
-    public AttorneyForm getNextReview(){
+    public static AttorneyForm getNextReview(){
         int id = readyToReview.remove();
         //return DB.getForm(id)
         return null;
     }
     
-    public AttorneyForm getNextApproval(){
+    public static AttorneyForm getNextApproval(){
         int id = readyToReview.remove();
         //return DB.getForm(id)
         return null;

@@ -4,6 +4,9 @@ public class Review {
     //The review needs to be able to flag each value that is incorrect
     //how should this be returned
 
+    //I think that could just be left up to the comments ArrayList<String> using the
+    //AttorneyForm's addComment(String comment) method. 
+
     public Review(AttorneyForm attorneyForm){
         this.attorneyForm = attorneyForm;
         //check workflow for next AttorneyForm in ReviewQueue
@@ -12,7 +15,7 @@ public class Review {
     }
 
     public void getNextReview(){
-        attorneyForm = Workflow.readyToReview[0]; //etc.
+        attorneyForm = Workflow.getNextReview(); //etc.
     }
 
     public void checkImmId(){
@@ -34,7 +37,7 @@ public class Review {
     }
     public void addComment(){
         //Do this
-        attorneyForm.comments += "\nReviewed";
+        attorneyForm.addComment("\nReviewed");
     }
     public void updateStatus(){
         attorneyForm.status = 1;
