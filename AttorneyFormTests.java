@@ -49,6 +49,12 @@ public class AttorneyFormTests{
         assertTrue("Did not add to approval workflow.", Workflow.getApproveQueue().getLast() == af.formId);
     }
 
+    @Test(expected = NullPointerException.class) //Should throw NullPointerException
+    public void testNullSendToWf(){
+        af = null;
+        af.sendToWf(1);
+    }
+
     @Test
     public void testSendToDb(){
         af.sendToDb();
