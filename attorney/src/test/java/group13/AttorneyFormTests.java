@@ -1,9 +1,13 @@
+package attorney.src.test.java.group13;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.beans.Transient;
 
 import org.junit.*;
+
+import attorney.src.main.java.group13.AttorneyForm;
+import attorney.src.main.java.group13.Workflow;
 
 public class AttorneyFormTests{
     AttorneyForm af;
