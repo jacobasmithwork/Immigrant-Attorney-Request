@@ -1,12 +1,8 @@
-package attorney.src.test.java.group13;
 import static org.junit.Assert.assertEquals;
 
 import java.beans.Transient;
 
 import org.junit.Test;
-
-import attorney.src.main.java.group13.AttorneyForm;
-import attorney.src.main.java.group13.Workflow;
 
 public class WorkflowTest{
     @Test

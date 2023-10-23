@@ -1,4 +1,4 @@
-package attorney.src.main.java.group13;
+
 public class Review {
     public AttorneyForm attorneyForm;
     
