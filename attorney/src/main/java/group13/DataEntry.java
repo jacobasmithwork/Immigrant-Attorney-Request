@@ -1,8 +1,6 @@
+package group13;
 
-import java.awt.*;
-import javax.swing.*;
-
-public class DataEntry{ //Test
+public class DataEntry{
     
     public DataEntry(){
         //init gui

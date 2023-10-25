@@ -1,36 +1,35 @@
-package attorney.src.test.java.group13;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+package tests;
 
-import java.beans.Transient;
-
+import static org.junit.Assert.*;
 import org.junit.*;
 
-import attorney.src.main.java.group13.AttorneyForm;
-import attorney.src.main.java.group13.Workflow;
+import group13.AttorneyForm;
+import group13.Workflow;
 
-public class AttorneyFormTests{
+public class AttorneyFormTests {
     AttorneyForm af;
+
     @Before
-    public void setUp(){
-        af = new AttorneyForm("Bob", "5503 Main Street", "Jim Smith", 123, 8042413788L); //without 'L', treated as int.
+    public void setUp() {
+        af = new AttorneyForm("Bob", "5503 Main Street", "Jim Smith", 123, 8042413788L); // without 'L', treated as int.
     }
 
     @After
-    public void cleanUp(){
+    public void cleanUp() {
         af = null;
     }
+
     @Test
-    public void testGetters(){
+    public void testGetters() {
         assertEquals(af.getName(), "Bob");
         assertEquals(af.getAddress(), "5503 Main Street");
         assertEquals(af.getAttorneyName(), "Jim Smith");
         assertEquals(af.getImmId(), 123);
         assertEquals(af.getPhoneNum(), 8042413788L);
     }
-    
+
     @Test
-    public void testSetters(){
+    public void testSetters() {
         af.setName("Andre");
         af.setAddress("4122 Ox Drive");
         af.setAttorneyName("Blanche Diaz");
@@ -45,7 +44,7 @@ public class AttorneyFormTests{
     }
 
     @Test
-    public void testSendToWf(){
+    public void testSendToWf() {
         af.sendToWf(1);
         assertTrue("Did not add to review workflow.", Workflow.getReviewQueue().getLast() == af.formId);
 
@@ -53,24 +52,25 @@ public class AttorneyFormTests{
         assertTrue("Did not add to approval workflow.", Workflow.getApproveQueue().getLast() == af.formId);
     }
 
-    @Test(expected = NullPointerException.class) //Should throw NullPointerException
-    public void testNullSendToWf(){
+    @Test(expected = NullPointerException.class) // Should throw NullPointerException
+    public void testNullSendToWf() {
         af = null;
         af.sendToWf(1);
     }
 
     @Test
-    public void testSendToDb(){
+    public void testSendToDb() {
         af.sendToDb();
-        //Once DB implemented, replace 'false' with DB.contains(formId)or contains(af)
+        // Once DB implemented, replace 'false' with DB.contains(formId)or contains(af)
         assertTrue("Did not add to database", false);
     }
-    
+
     @Test
-    public void testUpdateDb(){
+    public void testUpdateDb() {
         af.setPhoneNum(8039002322L);
         af.updateDb();
-        //Once DB implemented, replace 'false' with DB.getForm(id).getPhoneNum == 8039002322L
+        // Once DB implemented, replace 'false' with DB.getForm(id).getPhoneNum ==
+        // 8039002322L
         assertTrue("Did not add to database", false);
     }
 }

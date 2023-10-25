@@ -1,8 +1,11 @@
+package tests;
+
 import static org.junit.Assert.assertEquals;
 
-import java.beans.Transient;
-
 import org.junit.Test;
+
+import group13.AttorneyForm;
+import group13.Workflow;
 
 public class WorkflowTest{
     @Test
