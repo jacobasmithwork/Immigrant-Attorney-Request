@@ -2,7 +2,7 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class DataEntry{
+public class DataEntry{ //Test
     
     public DataEntry(){
         //init gui
