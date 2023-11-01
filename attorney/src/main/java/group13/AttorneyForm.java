@@ -19,6 +19,10 @@ public class AttorneyForm{
      */
     public String attorneyName;
     /**
+     * The String representing the name of the attorney's firm.
+     */
+    public String attorneyFirm;
+    /**
      * The ArrayList of Strings for recording notes from the reviewer and approver on the user's attorney request form.
      */
     public ArrayList<String> comments;
@@ -49,10 +53,11 @@ public class AttorneyForm{
      * @param name is the String value of the user's inputted name. 
      * @param address is the String value of the user's inputted address.
      * @param attorneyName is the String value of the name of the user's requested attorney.
+     * @param attorneyFirm is the String value of the name of the attorney's firm.
      * @param immId is the interger type id number of user.
      * @param phoneNum is the long type representation of the user's phone number.
      */
-    public AttorneyForm(String name, String address, String attorneyName, int immId, long phoneNum){
+    public AttorneyForm(String name, String address, String attorneyName, String attorneyFirm, int immId, long phoneNum){
         this.name = name;
         this.address = address;
         this.attorneyName = attorneyName; 
@@ -69,11 +74,12 @@ public class AttorneyForm{
      * @param name is the String value of the user's inputted name.
      * @param address is the String value of the user's inputted address.
      * @param attorneyName is the String value of the name of the user's requested attorney.
+     * @param attorneyFirm is the String value of the name of the attorney's firm.
      * @param immId is the interger type id number of user.
      * @param phoneNum is the long type representation of the user's phone number.
      * @param formId is the integer value representing an AttorneyForm object's unique id number.
      */
-    public AttorneyForm(String name, String address, String attorneyName, int immId, long phoneNum, Integer formId){
+    public AttorneyForm(String name, String address, String attorneyName, String attorneyFirm, int immId, long phoneNum, Integer formId){
         this.name = name;
         this.address = address;
         this.attorneyName = attorneyName; 
