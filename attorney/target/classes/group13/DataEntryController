@@ -1,0 +1,11 @@
+package group13;
+
+public class DataEntryController {
+
+    public Button submitButton;
+
+    @FXML
+    private void attemptSubmit(){
+        System.out.println("BUTTON CLICKED");
+    }
+}

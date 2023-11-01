@@ -20,6 +20,7 @@ public class DataEntry extends Application{
     public static void main(String[] args) {
         //handle gui
         new DataEntry();
+        launch();
     }
 
     public boolean validateForms(AttorneyForm af){
@@ -36,12 +37,13 @@ public class DataEntry extends Application{
         // Load root layout from fxml file.
         FXMLLoader loader = new FXMLLoader();
 
-        loader.setLocation(this.getClass().getResource("/DataEntryScreen.fxml"));
+        loader.setLocation(this.getClass().getResource("DataEntryScreen.fxml"));
 
         Parent parent = loader.load();
 
         // Show the scene containing the root layout.
         Scene scene = new Scene(parent);
+        primaryStage.setTitle("Attorney Application");
         primaryStage.setScene(scene);
         primaryStage.show();
     } catch (IOException e) {
