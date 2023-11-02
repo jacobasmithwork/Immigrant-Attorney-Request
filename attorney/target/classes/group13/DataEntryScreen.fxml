@@ -36,8 +36,8 @@
             </Text>
             <TextField fx:id="attFirm" layoutX="284.0" layoutY="231.0" prefHeight="26.0" prefWidth="314.0" promptText="Marks and Harrison" />
             <Text fx:id="attFirmLabel" layoutX="284.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attorney Firm" />
-            <TextField fx:id="immPhoneNum" layoutX="45.0" layoutY="299.0" prefHeight="26.0" prefWidth="204.0" promptText="803-900-2322" />
-            <Text fx:id="immPhoneNumLabel" layoutX="45.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attorney Phone Number" />
+            <TextField fx:id="attPhoneNum" layoutX="45.0" layoutY="299.0" prefHeight="26.0" prefWidth="204.0" promptText="803-900-2322" />
+            <Text fx:id="attPhoneNumLabel" layoutX="45.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attorney Phone Number" />
             <ProgressIndicator layoutX="605.0" layoutY="345.0" progress="0.0" />
             <Button fx:id="submitButton" layoutX="466.0" layoutY="312.0" mnemonicParsing="false" onAction="#attemptSubmit" prefHeight="66.0" prefWidth="123.0" text="Submit Request">
                <font>
@@ -46,7 +46,7 @@
             </Button>
             <Text id="NameError" fx:id="immNameError" fill="RED" layoutX="46.0" layoutY="95.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Error with Name" wrappingWidth="204.0" />
             <Text id="IDError" fx:id="immIDError" fill="RED" layoutX="46.0" layoutY="162.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Error with ID" wrappingWidth="204.0" />
-            <Text id="PhoneNumError" fx:id="immPhoneNumError" fill="RED" layoutX="45.0" layoutY="338.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Error with Phone Number" wrappingWidth="333.0" />
+            <Text id="PhoneNumError" fx:id="attPhoneNumError" fill="RED" layoutX="45.0" layoutY="338.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Error with Phone Number" wrappingWidth="333.0" />
             <Text id="AddressError" fx:id="immAddressError" fill="RED" layoutX="284.0" layoutY="95.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Error with Address" wrappingWidth="314.39999999999986" />
             <Text id="AttNameError" fx:id="attNameError" fill="RED" layoutX="45.0" layoutY="270.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Error with Name" wrappingWidth="204.0" />
             <Text id="AttFirmError" fx:id="attFirmError" fill="RED" layoutX="283.0" layoutY="270.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0" text="*Error with Firm" wrappingWidth="314.39999999999986" />
