@@ -38,8 +38,8 @@ public class DataEntry extends Application{
         primaryStage.setTitle("Attorney Application");
         primaryStage.setScene(scene);
         primaryStage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
