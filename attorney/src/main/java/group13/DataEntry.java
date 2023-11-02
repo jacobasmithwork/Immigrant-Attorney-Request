@@ -23,14 +23,6 @@ public class DataEntry extends Application{
         launch();
     }
 
-    public boolean validateForms(AttorneyForm af){
-        //Make sure email is formatted
-        //All forms have input
-        //Phone number is 10 digits
-        //etc.
-        return true;
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {

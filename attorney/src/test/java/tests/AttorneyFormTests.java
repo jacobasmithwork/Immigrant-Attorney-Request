@@ -11,7 +11,7 @@ public class AttorneyFormTests {
 
     @Before
     public void setUp() {
-        af = new AttorneyForm("Bob", "5503 Main Street", "Jim Smith", 123, 8042413788L); // without 'L', treated as int.
+        af = new AttorneyForm("Bob", "5503 Main Street", "Jim Smith", "Cool Guy Firm", 123, 8042413788L); // without 'L', treated as int.
     }
 
     @After
