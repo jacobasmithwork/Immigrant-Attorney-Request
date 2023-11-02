@@ -247,7 +247,7 @@ public class AttorneyForm{
     // @Override
     public String toString(){
         return String.format(
-            "Attorney Form ID: %d\n\tImmigrant Name: %s\n\tImmigrant address: %s\n\tImmigrant ID: %d\n\tAttorney Name: %s\n\tAttorney Firm: %s\n\tAttorney Phone Number: %L\n\t",
+            "Attorney Form ID: %d\n\tImmigrant Name: %s\n\tImmigrant address: %s\n\tImmigrant ID: %d\n\tAttorney Name: %s\n\tAttorney Firm: %s\n\tAttorney Phone Number: %d\n\t",
             this.formId, this.name, this.address, this.immId, this.attorneyName, this.attorneyFirm, this.phoneNum
         );
     }

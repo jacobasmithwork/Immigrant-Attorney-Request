@@ -40,13 +40,12 @@ public class DataEntryController {
     public void attemptSubmit(ActionEvent e){
         if(validateForms() == true){
             submitButton.setText("Submitted!");
+            AttorneyForm af = new AttorneyForm(immName.getText(), immAddress.getText(),
+             attName.getText(), attFirm.getText(), Integer.parseInt(immID.getText()),
+              Long.parseLong(immPhoneNum.getText().replaceAll("[\\s\\-()+]", "")));
+    
+            System.out.println(af.toString());
         }
-
-        AttorneyForm af = new AttorneyForm(immName.getText(), immAddress.getText(),
-         attName.getText(), attFirm.getText(), Integer.parseInt(immID.getText()),
-          Long.parseLong(immPhoneNum.getText().replaceAll("[\\s\\-()+]", "")));
-
-        System.out.println(af.toString());
     }
 
     public void makeEnglish(ActionEvent e){
@@ -159,7 +158,8 @@ public class DataEntryController {
                 //Immigrant Phone Number
                 String immPhoneNumString = immPhoneNum.getText();
                 //Strip of parenthese, hyphens, and + signs.
-                immPhoneNumString.replaceAll("[\\s\\-()+]", "");
+                immPhoneNumString = immPhoneNumString.replaceAll("[\\s\\-()+]", "");
+                System.out.println(immPhoneNumString);
                 long immPhoneNumVal = 0;
                 int phoneFail = 0; //If fails to be long-ified, set to 1 for proper error message.
                 try{
