@@ -65,6 +65,7 @@ public class AttorneyForm{
         this.phoneNum = phoneNum;
         this.status = 0;
         this.comments = new ArrayList<String>();
+        this.formId = 1; //TODO: change to available id
     }
     //Constructor if formId is known (issues with Integer vs int?)
 
@@ -243,4 +244,11 @@ public class AttorneyForm{
         //uses unique form ID to edit the form in database without disrupting others
     }
 
+    // @Override
+    public String toString(){
+        return String.format(
+            "Attorney Form ID: %d\n\tImmigrant Name: %s\n\tImmigrant address: %s\n\tImmigrant ID: %d\n\tAttorney Name: %s\n\tAttorney Firm: %s\n\tAttorney Phone Number: %L\n\t",
+            this.formId, this.name, this.address, this.immId, this.attorneyName, this.attorneyFirm, this.phoneNum
+        );
+    }
 }

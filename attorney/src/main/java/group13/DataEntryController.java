@@ -38,10 +38,15 @@ public class DataEntryController {
     public MenuButton languageSelector;
 
     public void attemptSubmit(ActionEvent e){
-        System.out.println("BUTTON CLICKED");
         if(validateForms() == true){
             submitButton.setText("Submitted!");
         }
+
+        AttorneyForm af = new AttorneyForm(immName.getText(), immAddress.getText(),
+         attName.getText(), attFirm.getText(), Integer.parseInt(immID.getText()),
+          Long.parseLong(immPhoneNum.getText().replaceAll("[\\s\\-()+]", "")));
+
+        System.out.println(af.toString());
     }
 
     public void makeEnglish(ActionEvent e){
@@ -116,6 +121,8 @@ public class DataEntryController {
         immPhoneNumError.setOpacity(0);
         attNameError.setOpacity(0);
         attFirmError.setOpacity(0);
+        
+        int fail = 0; //1 means failure on some level.
 
         switch (language) {
             case 0: //English errors
@@ -124,16 +131,20 @@ public class DataEntryController {
                 if(immNameVal.length() == 0 || immNameVal.strip() == ""){
                     immNameError.setText("Needs to be filled in.");
                     immNameError.setOpacity(1);
+                    fail = 1;
                 }
                 else if(immNameVal.contains(" ") == false){
                     immNameError.setText("Must have full name.");
                     immNameError.setOpacity(1);
+                    fail = 1;
+                    fail = 1;
                 }
                 //Immigrant Address
                 String immAddressVal = immAddress.getText();
                 if(immAddressVal.length() == 0 || immAddressVal.strip() == ""){
                     immAddressError.setText("Needs to be filled in.");
                     immAddressError.setOpacity(1);
+                    fail = 1;
                 }
                 //Immigrant ID
                 int immIdVal;
@@ -143,38 +154,46 @@ public class DataEntryController {
                 catch(NumberFormatException e){
                     immIDError.setText("Immigrant ID must be numeric.");
                     immIDError.setOpacity(1);
+                    fail = 1;
                 }
                 //Immigrant Phone Number
                 String immPhoneNumString = immPhoneNum.getText();
                 //Strip of parenthese, hyphens, and + signs.
                 immPhoneNumString.replaceAll("[\\s\\-()+]", "");
                 long immPhoneNumVal = 0;
+                int phoneFail = 0; //If fails to be long-ified, set to 1 for proper error message.
                 try{
                     immPhoneNumVal = Long.parseLong(immPhoneNumString);
                 }
                 catch(NumberFormatException e){
                     immPhoneNumError.setText("Phone Number must be numeric.");
                     immPhoneNumError.setOpacity(1);
+                    phoneFail = 1;
+                    fail = 1;
                 }
-                if(String.valueOf(immPhoneNumVal).length() < 10){
+                if(phoneFail == 0 && String.valueOf(immPhoneNumVal).length() < 10){
                     immPhoneNumError.setText("Phone number needs to be at least 10 digits.");
                     immPhoneNumError.setOpacity(1);
+                    fail = 1;
                 }
                 //Attorney Name
                 String attNameVal = attName.getText();
                 if(attNameVal.length() == 0 || attNameVal.strip() == ""){
                     attNameError.setText("Needs to be filled in.");
                     attNameError.setOpacity(1);
+                    fail = 1;
                 }
                 else if(attNameVal.contains(" ") == false){
                     attNameError.setText("Must have full name.");
                     attNameError.setOpacity(1);
+                    fail = 1;
                 }
                 //Attorney Firm
                 String attFirmVal = attFirm.getText();
                 if(attFirmVal.length() == 0 || attFirmVal.strip() == ""){
                     attNameError.setText("Needs to be filled in.");
                     attNameError.setOpacity(1);
+                    fail = 1;
                 }
                 break;
             case 1: //Spanish errors
@@ -183,7 +202,9 @@ public class DataEntryController {
             default:
                 break;
         }
-
-        return true;
+        if(fail == 0){
+            return true;
+        }
+        return false;
     }
 }
