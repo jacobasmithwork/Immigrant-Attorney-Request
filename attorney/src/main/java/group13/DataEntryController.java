@@ -40,21 +40,36 @@ public class DataEntryController {
     public ProgressIndicator progressCircle;
     
     //Language Support: Labels
-    String[][] labelTexts = { //0 = English, 1 = Spanish,
+    String[][] labelTexts = { //0 = English, 1 = Spanish, 2 = Chinese, 3 = Hindi, 4 = French
         {"Submitted!", "Applicant Name","Applicant Address", "Applicant Immigrant ID", 
         "Attorney Phone Number", "Attorney Name", "Attorney Firm", "Applicant Information", 
         "Attorney Information", "Submit Request", "English"},//End English
         {"Enviado!", "Nombre del solicitante", "Dirección del solicitante", "Identificación de Inmigrante del Solicitante",
          "Número de teléfono del abogado", "Nombre del abogado", "Firma de abogados", "Información del aplicante",
-          "Información del abogado", "Enviar peticion", "Español"}//End Spanish
+          "Información del abogado", "Enviar peticion", "Español"},//End Spanish
+        {"已提交！", "申请人姓名","申请人地址", "申请人移民 ID",
+        "律师电话号码","律师姓名","律师事务所","申请人信息",
+        "律师信息","提交请求","中国人"},//End Chinese
+        {"प्रस्तुत!", "आवेदक का नाम", "आवेदक का पता", "आवेदक अप्रवासी आईडी",
+        "वकील फ़ोन नंबर", "वकील का नाम", "वकील फर्म", "आवेदक की जानकारी",
+        "वकील सूचना", "अनुरोध सबमिट करें", "हिंदी"},//End Hindi
+        {"Envoyé !", "Nom du demandeur", "Adresse du demandeur", "ID d'immigrant du demandeur",
+        "Numéro de téléphone de l'avocat", "Nom de l'avocat", "Cabinet d'avocat", "Informations sur le candidat",
+        "Informations sur l'avocat", "Soumettre la demande", "Français"}//End French
     };
     //Language Support: Errors
-    String[][] errorTexts = {//0 = English, 1 = Spanish,
+    String[][] errorTexts = {//0 = English, 1 = Spanish, 2 = Chinese, 3 = Hindi, 4 = French
         {"Needs to be filled in.", "Must have full name.", "Immigrant ID must be numeric.",
          "Phone Number must be numeric.", "Phone number needs to be at least 10 digits."},
         {"Necesita ser completado.", "Debe tener nombre completo.", 
         "La identificación de inmigrante debe ser numérica.", "El número de teléfono debe ser numérico.", 
-        "El número de teléfono debe tener al menos 10 dígitos."}
+        "El número de teléfono debe tener al menos 10 dígitos."},
+        {"需要填写。", "必须有全名。", "移民 ID 必须是数字。",
+        "电话号码必须是数字。","电话号码至少需要 10 位数字。"},
+        {"भरने की जरूरत है।", "पूरा नाम होना चाहिए।", "अप्रवासी आईडी संख्यात्मक होनी चाहिए।",
+        "फ़ोन नंबर संख्यात्मक होना चाहिए।", "फ़ोन नंबर कम से कम 10 अंकों का होना चाहिए।"},
+        {"Doit être rempli.", "Doit avoir le nom complet.", "La carte d'identité de l'immigrant doit être numérique.",
+        "Le numéro de téléphone doit être numérique.", "Le numéro de téléphone doit comporter au moins 10 chiffres."}
     };
 
     public void attemptSubmit(ActionEvent e){
@@ -68,17 +83,15 @@ public class DataEntryController {
         }
         else{
             int mistakes = 0;
-            if(immNameError.getOpacity() == 1){mistakes++;}
             if(immNameError.getOpacity() == 1) {mistakes++;}
             if(immAddressError.getOpacity() == 1) {mistakes++;}
             if(immIDError.getOpacity() == 1) {mistakes++;}
             if(attPhoneNumError.getOpacity() == 1) {mistakes++;}
             if(attNameError.getOpacity() == 1) {mistakes++;}
             if(attFirmError.getOpacity() == 1) {mistakes++;}
-            System.out.println();
             double percentage = ((6-mistakes) / 6.0);
             progressCircle.setProgress(percentage);
-            System.out.println(String.format("percentage: %f\nprogress' progress: %f", percentage, progressCircle.getProgress()));
+            // System.out.println(String.format("percentage: %f\nprogress' progress: %f", percentage, progressCircle.getProgress()));
         }
     }
 
@@ -113,10 +126,29 @@ public class DataEntryController {
     }
 
     public void makeSpanish(ActionEvent e){
-        //Disable all errors
-        //Set all texts
         if(language != 1){
             language = 1;
+            updateLabels();
+        }
+    }
+
+    public void makeChinese(ActionEvent e){
+        if(language != 2){
+            language = 2;
+            updateLabels();
+        }
+    }
+
+    public void makeHindi(ActionEvent e){
+        if(language != 3){
+            language = 3;
+            updateLabels();
+        }
+    }
+
+    public void makeFrench(ActionEvent e){
+        if(language != 4){
+            language = 4;
             updateLabels();
         }
     }

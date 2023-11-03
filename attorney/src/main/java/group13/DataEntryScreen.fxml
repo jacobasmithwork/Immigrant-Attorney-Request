@@ -39,7 +39,7 @@
             <TextField fx:id="attPhoneNum" layoutX="45.0" layoutY="299.0" prefHeight="26.0" prefWidth="204.0" promptText="803-900-2322" />
             <Text fx:id="attPhoneNumLabel" layoutX="45.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attorney Phone Number" />
             <ProgressIndicator fx:id="progressCircle" layoutX="605.0" layoutY="345.0" progress="0.0" />
-            <Button fx:id="submitButton" layoutX="466.0" layoutY="312.0" mnemonicParsing="false" onAction="#attemptSubmit" prefHeight="66.0" prefWidth="123.0" text="Submit Request">
+            <Button fx:id="submitButton" layoutX="385.0" layoutY="312.0" mnemonicParsing="false" onAction="#attemptSubmit" prefHeight="66.0" prefWidth="204.0" text="Submit Request">
                <font>
                   <Font size="14.0" />
                </font>
@@ -54,9 +54,9 @@
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#makeEnglish" text="English" />
                 <MenuItem mnemonicParsing="false" onAction="#makeSpanish" text="Español" />
-                <!-- <MenuItem mnemonicParsing="false" onAction="#changeLanguage" text="Français" />
-                <MenuItem mnemonicParsing="false" onAction="#changeLanguage" text="中国人" />
-                <MenuItem mnemonicParsing="false" onAction="#changeLanguage" text="हिंदी" /> -->
+                <MenuItem mnemonicParsing="false" onAction="#makeFrench" text="Français" />
+                <MenuItem mnemonicParsing="false" onAction="#makeChinese" text="中国人" />
+                <MenuItem mnemonicParsing="false" onAction="#makeHindi" text="हिंदी" />
               </items>
             </MenuButton>
       </children>
