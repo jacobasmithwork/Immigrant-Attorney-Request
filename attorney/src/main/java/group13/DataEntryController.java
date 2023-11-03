@@ -1,11 +1,19 @@
 package group13;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class DataEntryController {
 
@@ -38,24 +46,43 @@ public class DataEntryController {
 
     public MenuButton languageSelector;
     public ProgressIndicator progressCircle;
-    
+    //Report variables
+    public Hyperlink reportProblem;
+    public Text explainLabel;
+    public Text stepsLabel;
+
+    public Text explainError;
+    public Text stepsError;
+
+    public TextField explain;
+    public TextField steps;
+
+    public Button submitReportButton;
+
+
+
     //Language Support: Labels
     String[][] labelTexts = { //0 = English, 1 = Spanish, 2 = Chinese, 3 = Hindi, 4 = French
         {"Submitted!", "Applicant Name","Applicant Address", "Applicant Immigrant ID", 
         "Attorney Phone Number", "Attorney Name", "Attorney Firm", "Applicant Information", 
-        "Attorney Information", "Submit Request", "English"},//End English
+        "Attorney Information", "Submit Request", "English", "Report Problem", "Explain the issue in full detail.",
+        "Give a step-by-step on how the problem happened.", "Submit Report"},//End English report == 11 
         {"Enviado!", "Nombre del solicitante", "Dirección del solicitante", "Identificación de Inmigrante del Solicitante",
          "Número de teléfono del abogado", "Nombre del abogado", "Firma de abogados", "Información del aplicante",
-          "Información del abogado", "Enviar peticion", "Español"},//End Spanish
+          "Información del abogado", "Enviar peticion", "Español", "Informar problema", 
+          "Explique el problema con todo detalle.", "Dé un paso a paso de cómo ocurrió el problema.", "Enviar informe"},//End Spanish
         {"已提交！", "申请人姓名","申请人地址", "申请人移民 ID",
         "律师电话号码","律师姓名","律师事务所","申请人信息",
-        "律师信息","提交请求","中国人"},//End Chinese
+        "律师信息","提交请求","中国人", "报告问题", "详细解释问题。",
+        "详细说明问题是如何发生的。", "提交报告"},//End Chinese
         {"प्रस्तुत!", "आवेदक का नाम", "आवेदक का पता", "आवेदक अप्रवासी आईडी",
         "वकील फ़ोन नंबर", "वकील का नाम", "वकील फर्म", "आवेदक की जानकारी",
-        "वकील सूचना", "अनुरोध सबमिट करें", "हिंदी"},//End Hindi
+        "वकील सूचना", "अनुरोध सबमिट करें", "हिंदी", "समस्या की रिपोर्ट करें", "समस्या को पूरे विस्तार से समझाएं।",
+        "समस्या कैसे हुई, इसके बारे में चरण-दर-चरण बताएं।", "रिपोर्ट सबमिट करें"},//End Hindi
         {"Envoyé !", "Nom du demandeur", "Adresse du demandeur", "ID d'immigrant du demandeur",
         "Numéro de téléphone de l'avocat", "Nom de l'avocat", "Cabinet d'avocat", "Informations sur le candidat",
-        "Informations sur l'avocat", "Soumettre la demande", "Français"}//End French
+        "Informations sur l'avocat", "Soumettre la demande", "Français", "Signaler un problème", "Expliquez le problème en détail.",
+        "Expliquez étape par étape comment le problème s'est produit.", "Soumettre le rapport"}//End French
     };
     //Language Support: Errors
     String[][] errorTexts = {//0 = English, 1 = Spanish, 2 = Chinese, 3 = Hindi, 4 = French
@@ -259,5 +286,62 @@ public class DataEntryController {
             return true;
         }
         return false;
+    }
+
+    public void openReport(ActionEvent e) throws InterruptedException{
+        try {
+            // Load root layout from fxml file.
+            FXMLLoader loader = new FXMLLoader();
+
+            loader.setLocation(this.getClass().getResource("ReportProblemScreen.fxml"));
+
+            Parent parent = loader.load();
+
+            // Show the scene containing the root layout.
+            Stage stage = new Stage();
+            Scene scene = new Scene(parent);
+            stage.setTitle("Error Report");
+            stage.setScene(scene);
+            stage.getIcons().add(new Image("https://cdn.staticcrate.com/stock-hd/effects/footagecrate-red-error-icon-prev-full.png"));
+            stage.show();
+            while(stepsError == null){
+                wait(100);
+            }
+            updateReportLabels();
+            
+        } catch (IOException f) {
+            f.printStackTrace();
+        }
+    }
+
+    public void submitReport(ActionEvent e){
+        if(validateReport() == true){
+            System.out.println(String.format("Issue: \n\t%s\nSteps:\n\t%s", explain.getText(), steps.getText()));
+        }
+    }
+
+    public boolean validateReport(){
+        int fail = 0;
+        if(explain.getText().strip().length() == 0){
+            explainError.setOpacity(1);
+            fail = 1;
+        }
+        if(steps.getText().strip().length() == 0){
+            stepsError.setOpacity(1);
+            fail = 1;
+        }
+        if(fail == 1){
+            return false;
+        }
+        return true;
+    }
+
+    public void updateReportLabels(){
+        explainLabel.setText(labelTexts[language][11]);
+        stepsLabel.setText(labelTexts[language][12]);
+        submitReportButton.setText(labelTexts[language][13]);
+
+        explainError.setText(errorTexts[language][0]);
+        stepsError.setText(errorTexts[language][0]);
     }
 }
