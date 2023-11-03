@@ -257,7 +257,7 @@ public class DataEntryController {
                 phoneFail = 1;
                 fail = 1;
             }
-            if(phoneFail == 0 && String.valueOf(attPhoneNumVal).length() < 10){
+            if(phoneFail == 0 && (String.valueOf(attPhoneNumVal).length() < 10 || String.valueOf(attPhoneNumVal).length() > 16)){
                 attPhoneNumError.setText(errorTexts[language][4]);
                 attPhoneNumError.setOpacity(1);
                 fail = 1;
@@ -304,10 +304,7 @@ public class DataEntryController {
             stage.setScene(scene);
             stage.getIcons().add(new Image("https://cdn.staticcrate.com/stock-hd/effects/footagecrate-red-error-icon-prev-full.png"));
             stage.show();
-            while(stepsError == null){
-                wait(100);
-            }
-            updateReportLabels();
+            // updateReportLabels();
             
         } catch (IOException f) {
             f.printStackTrace();
@@ -317,11 +314,14 @@ public class DataEntryController {
     public void submitReport(ActionEvent e){
         if(validateReport() == true){
             System.out.println(String.format("Issue: \n\t%s\nSteps:\n\t%s", explain.getText(), steps.getText()));
+            submitReportButton.setText(labelTexts[language][0]);
         }
     }
 
     public boolean validateReport(){
         int fail = 0;
+        explainError.setOpacity(0);
+        stepsError.setOpacity(0);
         if(explain.getText().strip().length() == 0){
             explainError.setOpacity(1);
             fail = 1;

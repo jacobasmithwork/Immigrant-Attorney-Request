@@ -61,6 +61,7 @@ public class AttorneyForm{
         this.name = name;
         this.address = address;
         this.attorneyName = attorneyName; 
+        this.attorneyFirm = attorneyFirm;
         this.immId = immId;
         this.phoneNum = phoneNum;
         this.status = 0;
