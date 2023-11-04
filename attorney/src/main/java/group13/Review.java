@@ -19,30 +19,30 @@ public class Review {
         attorneyForm = Workflow.getNextReview(); //etc.
     }
 
-    public void checkImmId(){
-        //do this
-    }
-    public void checkPhoneNum(){
-        //do this
-    }
-    public void checkAttorneyName(){
-        //do this
-    }
-    public void checkAddress(){
-        //do this
-    }
-    public void checkName(String name){
-        if(!name.equals(attorneyForm.name)){
-            //Do this
-        }
-    }
-    public void addComment(){
-        //Do this
-        attorneyForm.addComment("\nReviewed");
-    }
-    public void updateStatus(){
-        attorneyForm.status = 1;
-    }
+    // public void checkImmId(){
+    //     //do this
+    // }
+    // public void checkPhoneNum(){
+    //     //do this
+    // }
+    // public void checkAttorneyName(){
+    //     //do this
+    // }
+    // public void checkAddress(){
+    //     //do this
+    // }
+    // public void checkName(String name){
+    //     if(!name.equals(attorneyForm.name)){
+    //         //Do this
+    //     }
+    // }
+    // public void addComment(){
+    //     //Do this
+    //     attorneyForm.addComment("\nReviewed");
+    // }
+    // public void updateStatus(){
+    //     attorneyForm.status = 1;
+    // }
 
 
     @Override
