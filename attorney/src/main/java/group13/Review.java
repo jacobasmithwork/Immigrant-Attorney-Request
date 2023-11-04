@@ -45,5 +45,24 @@ public class Review {
     }
 
 
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        try {
+            // Load root layout from fxml file.
+            FXMLLoader loader = new FXMLLoader();
+
+            loader.setLocation(this.getClass().getResource("ReviewScreen.fxml"));
+
+            Parent parent = loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(parent);
+            primaryStage.setTitle("Attorney Application");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
