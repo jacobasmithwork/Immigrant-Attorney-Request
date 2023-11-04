@@ -1,17 +1,5 @@
 package group13;
-
-import java.io.IOException;
-
-import javafx.application.Application;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
-
-public class Review extends Application{
+public class Review {
     public AttorneyForm attorneyForm;
     
     //The review needs to be able to flag each value that is incorrect
@@ -25,12 +13,6 @@ public class Review extends Application{
         //check workflow for next AttorneyForm in ReviewQueue
         //check and validate each field
         //update workflow 
-    }
-
-    public static void main(String[] args){
-        //handle gui
-        new Review();
-        launch();
     }
 
     public void getNextReview(){

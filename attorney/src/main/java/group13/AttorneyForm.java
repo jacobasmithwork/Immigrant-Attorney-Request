@@ -57,6 +57,18 @@ public class AttorneyForm{
      * @param immId is the interger type id number of user.
      * @param phoneNum is the long type representation of the user's phone number.
      */
+    public AttorneyForm(){
+        this.name = "";
+        this.address = "";
+        this.attorneyName = ""; 
+        this.attorneyFirm = "";
+        this.immId = 0;
+        this.phoneNum = 0;
+        this.status = 0;
+        this.comments = new ArrayList<String>();
+        this.formId = 0; 
+    }
+
     public AttorneyForm(String name, String address, String attorneyName, String attorneyFirm, int immId, long phoneNum){
         this.name = name;
         this.address = address;
