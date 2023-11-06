@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
-public class Aprrove extends Application{
+public class Approve extends Application{
 
     //AttorneyForm form = new AttorneyForm("Chidera","123 fake street","Frank","best firm",123,1010101099);
     
