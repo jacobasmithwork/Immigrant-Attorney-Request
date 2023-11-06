@@ -19,31 +19,50 @@ public class Review {
         attorneyForm = Workflow.getNextReview(); //etc.
     }
 
-    public void checkImmId(){
-        //do this
-    }
-    public void checkPhoneNum(){
-        //do this
-    }
-    public void checkAttorneyName(){
-        //do this
-    }
-    public void checkAddress(){
-        //do this
-    }
-    public void checkName(String name){
-        if(!name.equals(attorneyForm.name)){
-            //Do this
+    // public void checkImmId(){
+    //     //do this
+    // }
+    // public void checkPhoneNum(){
+    //     //do this
+    // }
+    // public void checkAttorneyName(){
+    //     //do this
+    // }
+    // public void checkAddress(){
+    //     //do this
+    // }
+    // public void checkName(String name){
+    //     if(!name.equals(attorneyForm.name)){
+    //         //Do this
+    //     }
+    // }
+    // public void addComment(){
+    //     //Do this
+    //     attorneyForm.addComment("\nReviewed");
+    // }
+    // public void updateStatus(){
+    //     attorneyForm.status = 1;
+    // }
+
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        try {
+            // Load root layout from fxml file.
+            FXMLLoader loader = new FXMLLoader();
+
+            loader.setLocation(this.getClass().getResource("ReviewScreen.fxml"));
+
+            Parent parent = loader.load();
+
+            // Show the scene containing the root layout.
+            Scene scene = new Scene(parent);
+            primaryStage.setTitle("Attorney Application");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-    public void addComment(){
-        //Do this
-        attorneyForm.addComment("\nReviewed");
-    }
-    public void updateStatus(){
-        attorneyForm.status = 1;
-    }
-
-
 
 }
