@@ -86,7 +86,7 @@ public class AttorneyForm implements Serializable{
         this.phoneNum = phoneNum;
         this.status = 0;
         this.comments = new ArrayList<String>();
-        this.formId = 1; //TODO: change to available id
+        this.formId = Math.abs(name.hashCode() ^ immId); //check if available when saving to db
     }
     //Constructor if formId is known (issues with Integer vs int?)
 
@@ -273,17 +273,6 @@ public class AttorneyForm implements Serializable{
         //Generate unique form ID based on hash of object
         //Double check via query that ID is not taken, and assign form ID
         //Send to database and save
-        // FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/database.txt");
-        // ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-        // HashMap<Integer,AttorneyForm> database = getDatabase();
-        // database.put(this.getFormId(), this);
-        // while(database.containsKey(this.getFormId())){
-        //     this.setFormId(this.getFormId() + 1);
-        // }
-        // objectOutputStream.writeObject(database);
-        // objectOutputStream.flush();
-        // objectOutputStream.close();
-
         HashMap<Integer, AttorneyForm> database = AttorneyForm.getDatabase();
         FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/database.txt");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -295,10 +284,14 @@ public class AttorneyForm implements Serializable{
 
     
     /**This method updates an AttorneyForm already contained in the Database.
+     * @throws IOException
+     * @throws ClassNotFoundException
      * 
      */
-    public void updateDb(){
+    public void updateDb() throws ClassNotFoundException, IOException{
         //uses unique form ID to edit the form in database without disrupting others
+        HashMap<Integer, AttorneyForm> database = getDatabase();
+        database.put(this.getFormId(), this);
     }
 
     public static void printAllForms() throws ClassNotFoundException, IOException{
@@ -342,9 +335,16 @@ public class AttorneyForm implements Serializable{
 
     // @Override
     public String toString(){
-        return String.format(
+        String out = String.format(
             "Attorney Form ID: %d\n\tImmigrant Name: %s\n\tImmigrant address: %s\n\tImmigrant ID: %d\n\tAttorney Name: %s\n\tAttorney Firm: %s\n\tAttorney Phone Number: %d\n\t",
             this.formId, this.name, this.address, this.immId, this.attorneyName, this.attorneyFirm, this.phoneNum
         );
+        if(this.comments.size() != 0){
+            out += "Comments:\n\t\t";
+            for(String comment : comments){
+                out += comment + "\n\t\t";
+            }
+        }
+        return out;
     }
 }
