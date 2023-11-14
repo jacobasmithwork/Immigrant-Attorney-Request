@@ -1,6 +1,14 @@
 package group13;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.HashMap;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +24,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class DataEntryController {
+    final static String outputFilePath = "attorney/src/main/java/group13/database.txt";
 
     public int language = 0; //0 = English, 1 = Spanish
 
@@ -59,8 +68,6 @@ public class DataEntryController {
 
     public Button submitReportButton;
 
-
-
     //Language Support: Labels
     String[][] labelTexts = { //0 = English, 1 = Spanish, 2 = Chinese, 3 = Hindi, 4 = French
         {"Submitted!", "Applicant Name","Applicant Address", "Applicant Immigrant ID", 
@@ -79,7 +86,7 @@ public class DataEntryController {
         "वकील फ़ोन नंबर", "वकील का नाम", "वकील फर्म", "आवेदक की जानकारी",
         "वकील सूचना", "अनुरोध सबमिट करें", "हिंदी", "समस्या की रिपोर्ट करें", "समस्या को पूरे विस्तार से समझाएं।",
         "समस्या कैसे हुई, इसके बारे में चरण-दर-चरण बताएं।", "रिपोर्ट सबमिट करें"},//End Hindi
-        {"Envoyé !", "Nom du demandeur", "Adresse du demandeur", "ID d'immigrant du demandeur",
+        {"Envoyé!", "Nom du demandeur", "Adresse du demandeur", "ID d'immigrant du demandeur",
         "Numéro de téléphone de l'avocat", "Nom de l'avocat", "Cabinet d'avocat", "Informations sur le candidat",
         "Informations sur l'avocat", "Soumettre la demande", "Français", "Signaler un problème", "Expliquez le problème en détail.",
         "Expliquez étape par étape comment le problème s'est produit.", "Soumettre le rapport"}//End French
@@ -99,13 +106,20 @@ public class DataEntryController {
         "Le numéro de téléphone doit être numérique.", "Le numéro de téléphone doit comporter au moins 10 chiffres."}
     };
 
-    public void attemptSubmit(ActionEvent e){
+    public void attemptSubmit(ActionEvent e) throws IOException, ClassNotFoundException{
+
         if(validateForms() == true){
             submitButton.setText(labelTexts[language][0]);
             AttorneyForm af = new AttorneyForm(immName.getText(), immAddress.getText(),
              attName.getText(), attFirm.getText(), Integer.parseInt(immID.getText()),
               Long.parseLong(attPhoneNum.getText().replaceAll("[\\s\\-()+]", "")));
+            af.setFormId(af.getName().hashCode() ^ af.getImmId());
             System.out.println(af.toString());
+            
+            af.sendToDb();
+
+            AttorneyForm.printAllForms();
+
             progressCircle.setProgress(1);
         }
         else{

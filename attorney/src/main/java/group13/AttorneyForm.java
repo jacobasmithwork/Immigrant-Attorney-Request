@@ -1,11 +1,20 @@
 package group13;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 //my second commit
 /**
  * The Business Object for the Attorney Request functional area.
  * 
  */
-public class AttorneyForm{
+public class AttorneyForm implements Serializable{
+    // private static final long serialVersionUID = 1L;
     /**
      * The String representing the user's name.
      */
@@ -46,7 +55,6 @@ public class AttorneyForm{
      * functional area 3 Database and Workflow object.
      */
     public int formId;
-    
     /**The default constructor method for the AttorneyForm.
      * 
      * Initializes the form's comment attribute and its status to zero.
@@ -153,7 +161,21 @@ public class AttorneyForm{
     public void setComments(ArrayList<String> comments) { //More likely to use addComment
         this.comments = comments;
     }
-    
+    /**A set method for an AttorneyForm object's formId attribute.
+     * 
+     * @return
+     */
+    public void setFormId(int formId) {
+        this.formId = formId;
+    }
+    /**A get method for an AttorneyForm object's formId attribute.
+     * 
+     * @return
+     */
+    public int getFormId() {
+        return this.formId;
+    }
+
     /**A get method for an AttorneyForm object's name attribute.
      * 
      * @return the String of the user's name.
@@ -217,8 +239,10 @@ public class AttorneyForm{
      * A status of 2 will add the object to the readyToApprove LinkedList in the workflow object.
      * 
      * @param status is the integer status to which the object will be updated.
+     * @throws IOException
+     * @throws ClassNotFoundException
      */
-    public void sendToWf(int status){ //0 = in DE, 1 = send to review queue, 2 = send to approve queue
+    public void sendToWf(int status) throws ClassNotFoundException, IOException{ //0 = in DE, 1 = send to review queue, 2 = send to approve queue
         this.status = status;
         if(status > 2 || status < 0){
             //invalid status input
@@ -241,12 +265,32 @@ public class AttorneyForm{
     }
 
     /**This method saves the AttorneyForm object to the database.
+     * @throws IOException
+     * @throws ClassNotFoundException
      * 
      */
-    public void sendToDb(){
+    public void sendToDb() throws IOException, ClassNotFoundException{
         //Generate unique form ID based on hash of object
         //Double check via query that ID is not taken, and assign form ID
         //Send to database and save
+        // FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/database.txt");
+        // ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        // HashMap<Integer,AttorneyForm> database = getDatabase();
+        // database.put(this.getFormId(), this);
+        // while(database.containsKey(this.getFormId())){
+        //     this.setFormId(this.getFormId() + 1);
+        // }
+        // objectOutputStream.writeObject(database);
+        // objectOutputStream.flush();
+        // objectOutputStream.close();
+
+        HashMap<Integer, AttorneyForm> database = AttorneyForm.getDatabase();
+        FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/database.txt");
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        database.put(this.getFormId(), this);
+        objectOutputStream.writeObject(database);
+        objectOutputStream.flush();
+        objectOutputStream.close();
     }
 
     
@@ -255,6 +299,45 @@ public class AttorneyForm{
      */
     public void updateDb(){
         //uses unique form ID to edit the form in database without disrupting others
+    }
+
+    public static void printAllForms() throws ClassNotFoundException, IOException{
+        try{
+            HashMap<Integer, AttorneyForm> database = getDatabase();
+            for (Integer name: database.keySet()) {
+                String key = name.toString();
+                String value = database.get(name).toString();
+                System.out.println(key + " " + value);
+            }
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+    }
+
+    public static HashMap<Integer, AttorneyForm> getDatabase() throws IOException, ClassNotFoundException{
+        try{
+            HashMap<Integer, AttorneyForm> database = new HashMap<Integer, AttorneyForm>();
+            FileInputStream fileInputStream = new FileInputStream("attorney/src/main/java/group13/database.txt");
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            database = (HashMap<Integer, AttorneyForm>) objectInputStream.readObject();
+            objectInputStream.close();
+            return database;
+        }
+        catch(Exception e){
+            HashMap<Integer, AttorneyForm> database = new HashMap<Integer, AttorneyForm>();
+            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/database.txt");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(database);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+
+            FileInputStream fileInputStream = new FileInputStream("attorney/src/main/java/group13/database.txt");
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            database = (HashMap<Integer, AttorneyForm>) objectInputStream.readObject();
+            objectInputStream.close();
+            return database;
+        }
     }
 
     // @Override
