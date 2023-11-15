@@ -1,5 +1,14 @@
 package group13;
-public class Review {
+
+import java.io.IOException;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class Review extends Application{
     public AttorneyForm attorneyForm;
     
     //The review needs to be able to flag each value that is incorrect
@@ -7,6 +16,10 @@ public class Review {
 
     //I think that could just be left up to the comments ArrayList<String> using the
     //AttorneyForm's addComment(String comment) method. 
+
+    public Review(){
+        
+    }
 
     public Review(AttorneyForm attorneyForm){
         this.attorneyForm = attorneyForm;
@@ -44,6 +57,11 @@ public class Review {
     //     attorneyForm.status = 1;
     // }
 
+    public static void main(String[] args){
+        //handle gui
+        // new Review(Workflow.getNextReview());
+        launch();
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception{

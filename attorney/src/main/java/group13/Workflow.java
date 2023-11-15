@@ -26,7 +26,7 @@ public class Workflow{
     public static void sendToReview(Integer id){
         try{
             LinkedList<Integer> rQueue = getReviewQueue();
-            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/reviewQueue.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/reviewQueue.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             if(!rQueue.contains(id)){
                 rQueue.add(id);
@@ -43,7 +43,7 @@ public class Workflow{
     public static void sendToApprove(Integer id){
         try{
             LinkedList<Integer> aQueue = getApproveQueue();
-            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/approveQueue.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/approveQueue.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             if(!aQueue.contains(id)){
                 aQueue.add(id);
@@ -64,7 +64,7 @@ public class Workflow{
     public static LinkedList<Integer> getApproveQueue(){
         try{
             LinkedList<Integer> database = new LinkedList<Integer>();
-            FileInputStream fileInputStream = new FileInputStream("attorney/src/main/java/group13/approveQueue.txt");
+            FileInputStream fileInputStream = new FileInputStream("attorney/src/main/java/group13/resources/approveQueue.txt");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             database = (LinkedList<Integer>) objectInputStream.readObject();
             objectInputStream.close();
@@ -73,13 +73,13 @@ public class Workflow{
         catch(Exception e){ //If no queue / improper queue, make new
             try{
                 LinkedList<Integer> database = new LinkedList<Integer>();
-                FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/approveQueue.txt");
+                FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/approveQueue.txt");
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
                 objectOutputStream.writeObject(database);
                 objectOutputStream.flush();
                 objectOutputStream.close();
                 //Re-grab to make sure still valid
-                FileInputStream fileInputStream = new FileInputStream("attorney/src/main/java/group13/approveQueue.txt");
+                FileInputStream fileInputStream = new FileInputStream("attorney/src/main/java/group13/resources/approveQueue.txt");
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
                 database = (LinkedList<Integer>) objectInputStream.readObject();
                 objectInputStream.close();
@@ -98,7 +98,7 @@ public class Workflow{
     public static LinkedList<Integer> getReviewQueue(){
         try{
             LinkedList<Integer> database = new LinkedList<Integer>();
-            FileInputStream fileInputStream = new FileInputStream("attorney/src/main/java/group13/reviewQueue.txt");
+            FileInputStream fileInputStream = new FileInputStream("attorney/src/main/java/group13/resources/reviewQueue.txt");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             database = (LinkedList<Integer>) objectInputStream.readObject();
             objectInputStream.close();
@@ -107,7 +107,7 @@ public class Workflow{
         catch(Exception e){ //If no queue / improper queue, make new
             try{
                 LinkedList<Integer> database = new LinkedList<Integer>();
-                FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/reviewQueue.txt");
+                FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/reviewQueue.txt");
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
                 objectOutputStream.writeObject(database);
                 objectOutputStream.flush();
@@ -115,6 +115,7 @@ public class Workflow{
                 return database;
             }
             catch(Exception f){
+                System.out.println(f);
                 return null;
             }
         }
@@ -128,6 +129,16 @@ public class Workflow{
         LinkedList<Integer> reviewQueue = getReviewQueue();
         int id = reviewQueue.remove();
         //return DB.getForm(id)
+        try{
+            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/reviewQueue.txt");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(reviewQueue);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
         return AttorneyForm.getForm(id);
     }
     
@@ -139,6 +150,16 @@ public class Workflow{
         LinkedList<Integer> approveQueue = getReviewQueue();
         int id = approveQueue.remove();
         //return DB.getForm(id)
+        try{
+            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/approveQueue.txt");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(approveQueue);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
         return AttorneyForm.getForm(id);
     }
 

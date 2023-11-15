@@ -47,7 +47,7 @@ public class ReviewController{
     }
 
     @FXML
-    public void btnSubmit(Action event){
+    public void btnSubmit(ActionEvent event){
 
     }
 

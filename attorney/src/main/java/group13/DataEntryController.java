@@ -24,7 +24,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class DataEntryController {
-    final static String outputFilePath = "attorney/src/main/java/group13/database.txt";
+    final static String outputFilePath = "attorney/src/main/java/group13/resources/database.txt";
 
     public int language = 0; //0 = English, 1 = Spanish
 

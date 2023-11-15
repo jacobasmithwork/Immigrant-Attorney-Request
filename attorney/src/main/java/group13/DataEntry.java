@@ -5,9 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
@@ -20,7 +18,7 @@ public class DataEntry extends Application{
 
     public static void main(String[] args){
         //handle gui
-        new DataEntry();
+        // new DataEntry();
         launch();
     }
 

@@ -32,12 +32,19 @@ public class WorkflowTest{
         AttorneyForm D = new AttorneyForm("Walt White", "308 Negra Arroyo Ln", "Saul Gman", "Cool Guy Firm", 143, 5051178987L, 8888);
 
         AttorneyForm[] formQueue = {A,B,C,D};
-        Workflow.readyToReview.addAll(formQueue);
+        //Add all forms to review queue
+        for(AttorneyForm af : formQueue){
+            int id = af.sendToWf(1);
+            System.out.println(id);
+            af.setFormId(id);
+        }
 
-        for(int i=0; i<formQueue.length; i++){
-            test = formQueue[i].formId;
-            wf = Workflow.getReviewQueue().remove();
-            assertEquals(("GetReviewQueue Error: mismatching formId: " + test +" : "+ wf), test, wf);
+        //For each form, check if id matches (only works on blank queue), then purge garbage forms from DB
+        for(int i=0; i < formQueue.length; i++){
+            int test = formQueue[i].formId;
+            int id = Workflow.getNextReview().getFormId();
+            assertEquals(("GetReviewQueue Error: mismatching formId: " + test +" : "+ id), test, id);
+            formQueue[i].removeFromDb();
         }
         
     }
@@ -50,12 +57,15 @@ public class WorkflowTest{
         AttorneyForm D = new AttorneyForm("Walt White", "308 Negra Arroyo Ln", "Saul Gman", "Cool Guy Firm", 143, 5051178987L, 8888);
 
         AttorneyForm[] formQueue = {A,B,C,D};
-        Workflow.readyToApprove.addAll(formQueue);
+        for(AttorneyForm af : formQueue){
+            af.sendToWf(2);
+        }
+        // Workflow.readyToReview.addAll(formQueue);
 
         for(int i=0; i<formQueue.length; i++){
-            test = formQueue[i].formId;
-            wf = Workflow.getApproveQueue().remove();
-            assertEquals(("GetApprovalQueue Error: mismatching formId: " + test +" : "+ wf), test, wf);
+            int test = formQueue[i].formId;
+            int id = Workflow.getNextApproval().getFormId();
+            assertEquals(("GetReviewQueue Error: mismatching formId: " + test +" : "+ id), test, id);
         }
         
     }

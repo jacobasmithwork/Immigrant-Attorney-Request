@@ -240,23 +240,26 @@ public class AttorneyForm implements Serializable{
      * 
      * @param status is the integer status to which the object will be updated.
      */
-    public void sendToWf(int status){ //0 = in DE, 1 = send to review queue, 2 = send to approve queue
+    public int sendToWf(int status){ //0 = in DE, 1 = send to review queue, 2 = send to approve queue
         this.status = status;
         if(status > 2 || status < 0){
             //invalid status input
+            return -1;
         }
         if(status == 1){
             //place in review
+            this.sendToDb();
             Workflow.sendToReview(this.formId);
-            sendToDb();
+            return this.formId;
         }
         else if(status == 2){ //dont see this being necessary
             //place in approval
+            this.sendToDb();
             Workflow.sendToApprove(this.formId);
-            sendToDb();
+            return this.formId;
         }
         else{
-            sendToDb();
+            return this.sendToDb();
             //save in database for later editing - if status is unchanged, the form is not submitted
         } 
          
@@ -265,21 +268,26 @@ public class AttorneyForm implements Serializable{
     /**This method saves the AttorneyForm object to the database.
      * 
      */
-    public void sendToDb(){
+    public int sendToDb(){
         //Generate unique form ID based on hash of object
         //Double check via query that ID is not taken, and assign form ID
         //Send to database and save
         try{
             HashMap<Integer, AttorneyForm> database = AttorneyForm.getDatabase();
-            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/database.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/database.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            while(database.containsKey(this.formId)){
+                this.setFormId(formId + 1);
+            }
             database.put(this.getFormId(), this);
             objectOutputStream.writeObject(database);
             objectOutputStream.flush();
             objectOutputStream.close();
+            return this.formId;
         }
         catch(Exception e){
             System.out.println(e);
+            return -1;
         }
     }
 
@@ -292,7 +300,7 @@ public class AttorneyForm implements Serializable{
         try{
             HashMap<Integer, AttorneyForm> database = getDatabase();
             database.put(this.getFormId(), this);
-            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/database.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/database.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(database);
             objectOutputStream.flush();
@@ -329,7 +337,7 @@ public class AttorneyForm implements Serializable{
     public static HashMap<Integer, AttorneyForm> getDatabase(){
         try{
             HashMap<Integer, AttorneyForm> database = new HashMap<Integer, AttorneyForm>();
-            FileInputStream fileInputStream = new FileInputStream("attorney/src/main/java/group13/database.txt");
+            FileInputStream fileInputStream = new FileInputStream("attorney/src/main/java/group13/resources/database.txt");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             database = (HashMap<Integer, AttorneyForm>) objectInputStream.readObject();
             objectInputStream.close();
@@ -338,7 +346,7 @@ public class AttorneyForm implements Serializable{
         catch(Exception e){
             try{
                 HashMap<Integer, AttorneyForm> database = new HashMap<Integer, AttorneyForm>();
-                FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/database.txt");
+                FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/database.txt");
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
                 objectOutputStream.writeObject(database);
                 objectOutputStream.flush();
@@ -373,7 +381,7 @@ public class AttorneyForm implements Serializable{
     public static void purgeDb(){
         try{
             HashMap<Integer, AttorneyForm> database = new HashMap<Integer, AttorneyForm>();
-            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/database.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/database.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(database);
             objectOutputStream.flush();
@@ -397,5 +405,20 @@ public class AttorneyForm implements Serializable{
             return database.get(id);
         }
         return null;
+    }
+
+    public void removeFromDb(){
+        HashMap<Integer, AttorneyForm> database = getDatabase();
+        database.remove(this.formId);
+        try{
+            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/database.txt");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(database);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        }
+        catch(Exception e){
+
+        }
     }
 }
