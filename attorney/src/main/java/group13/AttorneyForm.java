@@ -239,22 +239,20 @@ public class AttorneyForm implements Serializable{
      * A status of 2 will add the object to the readyToApprove LinkedList in the workflow object.
      * 
      * @param status is the integer status to which the object will be updated.
-     * @throws IOException
-     * @throws ClassNotFoundException
      */
-    public void sendToWf(int status) throws ClassNotFoundException, IOException{ //0 = in DE, 1 = send to review queue, 2 = send to approve queue
+    public void sendToWf(int status){ //0 = in DE, 1 = send to review queue, 2 = send to approve queue
         this.status = status;
         if(status > 2 || status < 0){
             //invalid status input
         }
         if(status == 1){
             //place in review
-            Workflow.readyToReview.add(this.formId);
+            Workflow.sendToReview(this.formId);
             sendToDb();
         }
         else if(status == 2){ //dont see this being necessary
             //place in approval
-            Workflow.readyToReview.add(this.formId);
+            Workflow.sendToApprove(this.formId);
             sendToDb();
         }
         else{
@@ -265,36 +263,50 @@ public class AttorneyForm implements Serializable{
     }
 
     /**This method saves the AttorneyForm object to the database.
-     * @throws IOException
-     * @throws ClassNotFoundException
      * 
      */
-    public void sendToDb() throws IOException, ClassNotFoundException{
+    public void sendToDb(){
         //Generate unique form ID based on hash of object
         //Double check via query that ID is not taken, and assign form ID
         //Send to database and save
-        HashMap<Integer, AttorneyForm> database = AttorneyForm.getDatabase();
-        FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/database.txt");
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-        database.put(this.getFormId(), this);
-        objectOutputStream.writeObject(database);
-        objectOutputStream.flush();
-        objectOutputStream.close();
+        try{
+            HashMap<Integer, AttorneyForm> database = AttorneyForm.getDatabase();
+            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/database.txt");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            database.put(this.getFormId(), this);
+            objectOutputStream.writeObject(database);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
     }
 
     
     /**This method updates an AttorneyForm already contained in the Database.
-     * @throws IOException
-     * @throws ClassNotFoundException
      * 
      */
-    public void updateDb() throws ClassNotFoundException, IOException{
+    public void updateDb(){
         //uses unique form ID to edit the form in database without disrupting others
-        HashMap<Integer, AttorneyForm> database = getDatabase();
-        database.put(this.getFormId(), this);
+        try{
+            HashMap<Integer, AttorneyForm> database = getDatabase();
+            database.put(this.getFormId(), this);
+            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/database.txt");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(database);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
     }
 
-    public static void printAllForms() throws ClassNotFoundException, IOException{
+    /**Prints all forms in the database.
+     * 
+     */
+    public static void printAllForms(){
         try{
             HashMap<Integer, AttorneyForm> database = getDatabase();
             for (Integer name: database.keySet()) {
@@ -308,7 +320,13 @@ public class AttorneyForm implements Serializable{
         }
     }
 
-    public static HashMap<Integer, AttorneyForm> getDatabase() throws IOException, ClassNotFoundException{
+    /**
+     * The function `getDatabase` reads a HashMap of AttorneyForm objects from a file, and if the file
+     * does not exist, it creates a new file and returns an empty HashMap.
+     * 
+     * @return The method is returning a HashMap<Integer, AttorneyForm> object.
+     */
+    public static HashMap<Integer, AttorneyForm> getDatabase(){
         try{
             HashMap<Integer, AttorneyForm> database = new HashMap<Integer, AttorneyForm>();
             FileInputStream fileInputStream = new FileInputStream("attorney/src/main/java/group13/database.txt");
@@ -318,18 +336,18 @@ public class AttorneyForm implements Serializable{
             return database;
         }
         catch(Exception e){
-            HashMap<Integer, AttorneyForm> database = new HashMap<Integer, AttorneyForm>();
-            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/database.txt");
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(database);
-            objectOutputStream.flush();
-            objectOutputStream.close();
-
-            FileInputStream fileInputStream = new FileInputStream("attorney/src/main/java/group13/database.txt");
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            database = (HashMap<Integer, AttorneyForm>) objectInputStream.readObject();
-            objectInputStream.close();
-            return database;
+            try{
+                HashMap<Integer, AttorneyForm> database = new HashMap<Integer, AttorneyForm>();
+                FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/database.txt");
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+                objectOutputStream.writeObject(database);
+                objectOutputStream.flush();
+                objectOutputStream.close();
+                return database;
+            }
+            catch(Exception f){
+                return null;
+            }
         }
     }
 
@@ -346,5 +364,38 @@ public class AttorneyForm implements Serializable{
             }
         }
         return out;
+    }
+
+    /**Removes all entries of the database, should rarely EVER be used. use only with extreme caution.
+     * Needed for testing / removing test entries. Can be commented out at any time.
+     * 
+     */
+    public static void purgeDb(){
+        try{
+            HashMap<Integer, AttorneyForm> database = new HashMap<Integer, AttorneyForm>();
+            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/database.txt");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(database);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+    }
+
+    /**
+     * Returns the AttorneyForm associated with the id provided, returns null if id is not in database.
+     * 
+     * @param id The int ID of the requested AttorneyForm
+     * @return The AttorneyForm associated with id, or null if not available.
+     */
+    public static AttorneyForm getForm(int id){
+        HashMap<Integer, AttorneyForm> database = new HashMap<Integer, AttorneyForm>();
+        database = getDatabase();
+        if(database.containsKey(id)){
+            return database.get(id);
+        }
+        return null;
     }
 }

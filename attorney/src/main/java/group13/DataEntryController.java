@@ -106,7 +106,7 @@ public class DataEntryController {
         "Le numéro de téléphone doit être numérique.", "Le numéro de téléphone doit comporter au moins 10 chiffres."}
     };
 
-    public void attemptSubmit(ActionEvent e) throws IOException, ClassNotFoundException{
+    public void attemptSubmit(ActionEvent e){
 
         if(validateForms() == true){
             submitButton.setText(labelTexts[language][0]);
