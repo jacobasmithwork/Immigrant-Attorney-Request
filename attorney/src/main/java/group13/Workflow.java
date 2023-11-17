@@ -147,10 +147,11 @@ public class Workflow{
      * @return A integer value corresponding to the form's ID.
      */
     public static AttorneyForm getNextApproval(){
-        LinkedList<Integer> approveQueue = getReviewQueue();
-        int id = approveQueue.remove();
+        LinkedList<Integer> approveQueue = getApproveQueue();
         //return DB.getForm(id)
+        int id = -1;
         try{
+            id = approveQueue.remove();
             FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/approveQueue.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(approveQueue);
@@ -159,6 +160,7 @@ public class Workflow{
         }
         catch(Exception e){
             System.out.println(e);
+            return null;
         }
         return AttorneyForm.getForm(id);
     }
