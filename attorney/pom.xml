@@ -48,16 +48,6 @@
                 </configuration>
             </plugin>
         </plugins>
-        <testResources>
-            <testResource>
-                <directory>/src/main/java/group13/resources</directory>
-            </testResource>
-        </testResources>
-        <resources>
-            <resource>
-                <directory>/src/main/java/group13/resources</directory>
-            </resource>
-        </resources>
     </build>
 
 
