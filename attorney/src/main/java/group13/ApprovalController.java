@@ -79,7 +79,7 @@ public class ApprovalController{
         if(form != null){
             form.addComment(comment.getText());
             System.out.println("REJCTED! =(");
-            Workflow.sendToReview(form.formId);
+            form.sendToWf(1);
         }
     }
 }
