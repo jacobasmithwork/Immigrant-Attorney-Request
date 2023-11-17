@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 
 public class ApprovalController{
 
-    AttorneyForm form = Workflow.getNextApproval();
+    AttorneyForm form = null;
 
     @FXML
     public Label address;
@@ -41,7 +41,9 @@ public class ApprovalController{
 
     @FXML
     public void btnOKClicked(ActionEvent event){
+        form = Workflow.getNextApproval();
         if(form == null){
+            
             formid.setText("Empty");
             status.setText("Empty");
             address.setText("Empty");
@@ -50,6 +52,7 @@ public class ApprovalController{
             attorneyFirm.setText("Empty");
             phoneNum.setText("Empty");
             immid.setText("Empty");
+            comment.setText("Empty");
         }
         else{ 
             formid.setText(""+form.formId);
@@ -60,6 +63,11 @@ public class ApprovalController{
             attorneyFirm.setText(form.attorneyFirm);
             phoneNum.setText(""+form.phoneNum);
             immid.setText(""+form.immId);
+            String comments = "";
+            for(int i = 0; i < form.comments.size(); i++){
+                comments += form.comments.get(i) + " ";
+            }
+            comment.setText(comments);
         }
     }
 

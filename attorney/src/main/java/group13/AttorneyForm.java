@@ -104,7 +104,8 @@ public class AttorneyForm implements Serializable{
     public AttorneyForm(String name, String address, String attorneyName, String attorneyFirm, int immId, long phoneNum, Integer formId){
         this.name = name;
         this.address = address;
-        this.attorneyName = attorneyName; 
+        this.attorneyName = attorneyName;
+        this.attorneyFirm = attorneyFirm; 
         this.immId = immId;
         this.phoneNum = phoneNum;
         this.status = 0;
