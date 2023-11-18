@@ -70,6 +70,7 @@ public class ReviewController{
             attorneyFirm.setText(form.attorneyFirm);
             phoneNum.setText(""+form.phoneNum);
             immid.setText(""+form.immId);
+            
             String comments = "";
             for(int i = 0; i < form.comments.size(); i++){
                 comments += form.comments.get(i) + " ";
