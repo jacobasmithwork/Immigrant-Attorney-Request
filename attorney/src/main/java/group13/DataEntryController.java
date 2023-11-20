@@ -117,8 +117,8 @@ public class DataEntryController {
             System.out.println(af.toString());
             
             af.sendToDb();
-
-            AttorneyForm.printAllForms();
+            af.sendToWf(1);
+            // AttorneyForm.printAllForms();
 
             progressCircle.setProgress(1);
         }
