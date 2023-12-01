@@ -1,11 +1,11 @@
 -------------------------------------------------------------------------------
 Test set: tests.WorkflowTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.005 s <<< FAILURE! -- in tests.WorkflowTest
-tests.WorkflowTest.testGetReviewQueue -- Time elapsed: 0.002 s <<< ERROR!
+Tests run: 4, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.009 s <<< FAILURE! -- in tests.WorkflowTest
+tests.WorkflowTest.testGetReviewQueue -- Time elapsed: 0.004 s <<< ERROR!
 java.lang.NullPointerException: Cannot invoke "java.util.LinkedList.remove()" because "reviewQueue" is null
-	at group13/group13.Workflow.getNextReview(Workflow.java:129)
-	at group13/tests.WorkflowTest.testGetReviewQueue(WorkflowTest.java:43)
+	at group13/group13.Workflow.getNextReview(Workflow.java:130)
+	at group13/tests.WorkflowTest.testGetReviewQueue(WorkflowTest.java:45)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
@@ -33,10 +33,9 @@ java.lang.NullPointerException: Cannot invoke "java.util.LinkedList.remove()" be
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
-tests.WorkflowTest.testGetApprovalQueue -- Time elapsed: 0.002 s <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "java.util.LinkedList.remove()" because "approveQueue" is null
-	at group13/group13.Workflow.getNextApproval(Workflow.java:140)
-	at group13/tests.WorkflowTest.testGetApprovalQueue(WorkflowTest.java:64)
+tests.WorkflowTest.testGetApprovalQueue -- Time elapsed: 0.003 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "group13.AttorneyForm.getFormId()" because the return value of "group13.Workflow.getNextApproval()" is null
+	at group13/tests.WorkflowTest.testGetApprovalQueue(WorkflowTest.java:67)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)

@@ -2,26 +2,33 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import group13.AttorneyForm;
 import group13.Workflow;
 
 public class WorkflowTest{
+    @Before
+    public void setup(){
+        Workflow.purgeReview();
+        Workflow.purgeApproval();
+    }
+
     @Test
     public void testGetNextReview(){
         AttorneyForm nextReview = new AttorneyForm("May Evans", "8806 Chain Bridge Blvd", "Elsie Pierce","Cool Guy Firm", 812, 7063398823L, 8351);
-        Workflow.readyToReview.add(8351);
+        nextReview.sendToWf(1);
         //Replace second 'nextReview' with DB.getForm(8351)
-        assertEquals("GetNextReview not working.", nextReview, nextReview);
+        assertEquals("GetNextReview not working.", nextReview.getFormId(), Workflow.getNextReview().getFormId());
     }
     
     @Test
     public void testGetNextApproval(){
         AttorneyForm nextApproval = new AttorneyForm("Mark Douglas", "4602 Chain Bridge Rd", "Violet Drake", "Cool Guy Firm", 904, 7266028841L, 9541);
-        Workflow.readyToReview.add(9541);
-        //Replace second 'nextApproval' with DB.getForm(9541)
-        assertEquals("GetNextReview not working.", nextApproval, nextApproval);
+        nextApproval.sendToWf(2);
+        //Replace second 'nextApproval' with DB.getForm(8351)
+        assertEquals("GetnextApproval not working.", nextApproval.getFormId(), Workflow.getNextApproval().getFormId());
     }
 
     @Test

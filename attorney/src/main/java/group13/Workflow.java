@@ -24,9 +24,13 @@ public class Workflow{
     //Having a static queue shares a single copy of each queue among all instances
 
     public static void sendToReview(Integer id){
+        String path = "attorney/src/main/java/group13/resources";
+        if(System.getProperty("user.dir").contains("attorney")){
+            path = "src/main/java/group13/resources";
+        }
         try{
             LinkedList<Integer> rQueue = getReviewQueue();
-            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/reviewQueue.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream(path + "/reviewQueue.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             if(!rQueue.contains(id)){
                 rQueue.add(id);
@@ -41,9 +45,13 @@ public class Workflow{
     }
 
     public static void sendToApprove(Integer id){
+        String path = "attorney/src/main/java/group13/resources";
+        if(System.getProperty("user.dir").contains("attorney")){
+            path = "src/main/java/group13/resources";
+        }
         try{
             LinkedList<Integer> aQueue = getApproveQueue();
-            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/approveQueue.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream(path + "/approveQueue.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             if(!aQueue.contains(id)){
                 aQueue.add(id);
@@ -62,9 +70,13 @@ public class Workflow{
      * @return A LinkedList of Integer numbers corresponding to AttorneyForm IDs.
      */
     public static LinkedList<Integer> getApproveQueue(){
+        String path = "attorney/src/main/java/group13/resources";
+        if(System.getProperty("user.dir").contains("attorney")){
+            path = "src/main/java/group13/resources";
+        }
         try{
             LinkedList<Integer> database = new LinkedList<Integer>();
-            FileInputStream fileInputStream = new FileInputStream("attorney/src/main/java/group13/resources/approveQueue.txt");
+            FileInputStream fileInputStream = new FileInputStream(path + "/approveQueue.txt");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             database = (LinkedList<Integer>) objectInputStream.readObject();
             objectInputStream.close();
@@ -73,16 +85,11 @@ public class Workflow{
         catch(Exception e){ //If no queue / improper queue, make new
             try{
                 LinkedList<Integer> database = new LinkedList<Integer>();
-                FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/approveQueue.txt");
+                FileOutputStream fileOutputStream = new FileOutputStream(path + "/approveQueue.txt");
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
                 objectOutputStream.writeObject(database);
                 objectOutputStream.flush();
                 objectOutputStream.close();
-                //Re-grab to make sure still valid
-                FileInputStream fileInputStream = new FileInputStream("attorney/src/main/java/group13/resources/approveQueue.txt");
-                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-                database = (LinkedList<Integer>) objectInputStream.readObject();
-                objectInputStream.close();
                 return database;
             }
             catch(Exception f){
@@ -96,9 +103,13 @@ public class Workflow{
      * @return A LinkedList of Integer numbers corresponding to AttorneyForm IDs.
      */
     public static LinkedList<Integer> getReviewQueue(){
+        String path = "attorney/src/main/java/group13/resources";
+        if(System.getProperty("user.dir").contains("attorney")){
+            path = "src/main/java/group13/resources";
+        }
         try{
             LinkedList<Integer> database = new LinkedList<Integer>();
-            FileInputStream fileInputStream = new FileInputStream("attorney/src/main/java/group13/resources/reviewQueue.txt");
+            FileInputStream fileInputStream = new FileInputStream(path + "/reviewQueue.txt");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             database = (LinkedList<Integer>) objectInputStream.readObject();
             objectInputStream.close();
@@ -107,7 +118,7 @@ public class Workflow{
         catch(Exception e){ //If no queue / improper queue, make new
             try{
                 LinkedList<Integer> database = new LinkedList<Integer>();
-                FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/reviewQueue.txt");
+                FileOutputStream fileOutputStream = new FileOutputStream(path + "/reviewQueue.txt");
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
                 objectOutputStream.writeObject(database);
                 objectOutputStream.flush();
@@ -126,11 +137,15 @@ public class Workflow{
      * @return A integer value corresponding to the form's ID.
      */
     public static AttorneyForm getNextReview(){
+        String path = "attorney/src/main/java/group13/resources";
+        if(System.getProperty("user.dir").contains("attorney")){
+            path = "src/main/java/group13/resources";
+        }
         LinkedList<Integer> reviewQueue = getReviewQueue();
         int id = reviewQueue.remove();
         //return DB.getForm(id)
         try{
-            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/reviewQueue.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream(path + "/reviewQueue.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(reviewQueue);
             objectOutputStream.flush();
@@ -147,12 +162,16 @@ public class Workflow{
      * @return A integer value corresponding to the form's ID.
      */
     public static AttorneyForm getNextApproval(){
+        String path = "attorney/src/main/java/group13/resources";
+        if(System.getProperty("user.dir").contains("attorney")){
+            path = "src/main/java/group13/resources";
+        }
         LinkedList<Integer> approveQueue = getApproveQueue();
         //return DB.getForm(id)
         int id = -1;
         try{
             id = approveQueue.remove();
-            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/approveQueue.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream(path + "/approveQueue.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(approveQueue);
             objectOutputStream.flush();
@@ -175,6 +194,42 @@ public class Workflow{
         System.out.println("Approve Queue:");
         for(Integer i : aQueue){
             System.out.println("\t" + i);
+        }
+    }
+
+    public static void purgeReview(){
+        String path = "attorney/src/main/java/group13/resources";
+        if(System.getProperty("user.dir").contains("attorney")){
+            path = "src/main/java/group13/resources";
+        }
+        try{
+            LinkedList<Integer> database = new LinkedList<Integer>();
+            FileOutputStream fileOutputStream = new FileOutputStream(path + "/reviewQueue.txt");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(database);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        }
+        catch(Exception e){
+
+        }
+    }
+
+    public static void purgeApproval(){
+        String path = "attorney/src/main/java/group13/resources";
+        if(System.getProperty("user.dir").contains("attorney")){
+            path = "src/main/java/group13/resources";
+        }
+        try{
+            LinkedList<Integer> database = new LinkedList<Integer>();
+            FileOutputStream fileOutputStream = new FileOutputStream(path + "/approveQueue.txt");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(database);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        }
+        catch(Exception e){
+            
         }
     }
 }

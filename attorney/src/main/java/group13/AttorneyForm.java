@@ -1,8 +1,6 @@
 package group13;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -273,9 +271,13 @@ public class AttorneyForm implements Serializable{
         //Generate unique form ID based on hash of object
         //Double check via query that ID is not taken, and assign form ID
         //Send to database and save
+        String path = "attorney/src/main/java/group13/resources";
+        if(System.getProperty("user.dir").contains("attorney")){
+            path = "src/main/java/group13/resources";
+        }
         try{
             HashMap<Integer, AttorneyForm> database = AttorneyForm.getDatabase();
-            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/database.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream(path + "/database.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             while(database.containsKey(this.formId)){
                 this.setFormId(formId + 1);
@@ -298,10 +300,14 @@ public class AttorneyForm implements Serializable{
      */
     public void updateDb(){
         //uses unique form ID to edit the form in database without disrupting others
+        String path = "attorney/src/main/java/group13/resources";
+        if(System.getProperty("user.dir").contains("attorney")){
+            path = "src/main/java/group13/resources";
+        }
         try{
             HashMap<Integer, AttorneyForm> database = getDatabase();
             database.put(this.getFormId(), this);
-            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/database.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream(path + "/database.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(database);
             objectOutputStream.flush();
@@ -336,9 +342,13 @@ public class AttorneyForm implements Serializable{
      * @return The method is returning a HashMap<Integer, AttorneyForm> object.
      */
     public static HashMap<Integer, AttorneyForm> getDatabase(){
+        String path = "attorney/src/main/java/group13/resources";
+        if(System.getProperty("user.dir").contains("attorney")){
+            path = "src/main/java/group13/resources";
+        }
         try{
             HashMap<Integer, AttorneyForm> database = new HashMap<Integer, AttorneyForm>();
-            FileInputStream fileInputStream = new FileInputStream("attorney/src/main/java/group13/resources/database.txt");
+            FileInputStream fileInputStream = new FileInputStream(path + "/database.txt");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             database = (HashMap<Integer, AttorneyForm>) objectInputStream.readObject();
             objectInputStream.close();
@@ -347,7 +357,7 @@ public class AttorneyForm implements Serializable{
         catch(Exception e){
             try{
                 HashMap<Integer, AttorneyForm> database = new HashMap<Integer, AttorneyForm>();
-                FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/database.txt");
+                FileOutputStream fileOutputStream = new FileOutputStream(path + "/database.txt");
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
                 objectOutputStream.writeObject(database);
                 objectOutputStream.flush();
@@ -380,9 +390,13 @@ public class AttorneyForm implements Serializable{
      * 
      */
     public static void purgeDb(){
+        String path = "attorney/src/main/java/group13/resources";
+        if(System.getProperty("user.dir").contains("attorney")){
+            path = "src/main/java/group13/resources";
+        }
         try{
             HashMap<Integer, AttorneyForm> database = new HashMap<Integer, AttorneyForm>();
-            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/database.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream(path + "/database.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(database);
             objectOutputStream.flush();
@@ -409,10 +423,14 @@ public class AttorneyForm implements Serializable{
     }
 
     public void removeFromDb(){
+        String path = "attorney/src/main/java/group13/resources";
+        if(System.getProperty("user.dir").contains("attorney")){
+            path = "src/main/java/group13/resources";
+        }
         HashMap<Integer, AttorneyForm> database = getDatabase();
         database.remove(this.formId);
         try{
-            FileOutputStream fileOutputStream = new FileOutputStream("attorney/src/main/java/group13/resources/database.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream(path + "/database.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(database);
             objectOutputStream.flush();

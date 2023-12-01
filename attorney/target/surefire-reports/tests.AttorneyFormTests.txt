@@ -1,11 +1,10 @@
 -------------------------------------------------------------------------------
 Test set: tests.AttorneyFormTests
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 2, Errors: 1, Skipped: 0, Time elapsed: 0.006 s <<< FAILURE! -- in tests.AttorneyFormTests
-tests.AttorneyFormTests.testSendToDb -- Time elapsed: 0.002 s <<< FAILURE!
-java.lang.AssertionError: Did not add to database
-	at org.junit.Assert.fail(Assert.java:89)
-	at org.junit.Assert.assertTrue(Assert.java:42)
+Tests run: 6, Failures: 1, Errors: 2, Skipped: 0, Time elapsed: 0.007 s <<< FAILURE! -- in tests.AttorneyFormTests
+tests.AttorneyFormTests.testSendToDb -- Time elapsed: 0.004 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.util.HashMap.containsKey(Object)" because "database" is null
+	at group13/group13.AttorneyForm.getForm(AttorneyForm.java:407)
 	at group13/tests.AttorneyFormTests.testSendToDb(AttorneyFormTests.java:65)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
@@ -68,7 +67,7 @@ java.lang.NullPointerException: Cannot invoke "java.util.LinkedList.getLast()" b
 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
 
-tests.AttorneyFormTests.testUpdateDb -- Time elapsed: 0 s <<< FAILURE!
+tests.AttorneyFormTests.testUpdateDb -- Time elapsed: 0.001 s <<< FAILURE!
 java.lang.AssertionError: Did not add to database
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.junit.Assert.assertTrue(Assert.java:42)

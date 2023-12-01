@@ -17,9 +17,12 @@ public class dummy {
         //     int id = af.sendToWf(1);
         //     af.setFormId(id);
         // }
+        // AttorneyForm af = AttorneyForm.getForm(1);
+        // AttorneyForm.printAllForms();
+        // Workflow.printQueues();
+        // Workflow.purgeApproval();
+        // Workflow.purgeReview();
 
-        Workflow.printQueues();
- 
         // AttorneyForm.purgeDb();
     }
 }

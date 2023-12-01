@@ -16,7 +16,12 @@ public class AttorneyFormTests {
 
     @After
     public void cleanUp() {
-        af = null;
+        try{
+            af.removeFromDb();
+        }
+        catch(Exception e){
+            
+        }
     }
 
     @Test
@@ -59,10 +64,15 @@ public class AttorneyFormTests {
     }
 
     @Test
+    public void getDb(){
+        assertTrue("Didn't work", AttorneyForm.getDatabase() != null);
+    }
+
+    @Test
     public void testSendToDb() {
-        af.sendToDb();
+        int form = af.sendToDb();
         // Once DB implemented, replace 'false' with DB.contains(formId)or contains(af)
-        assertTrue("Did not add to database", false);
+        assertTrue("Did not add to database", AttorneyForm.getForm(form) != null);
     }
 
     @Test
@@ -71,6 +81,6 @@ public class AttorneyFormTests {
         af.updateDb();
         // Once DB implemented, replace 'false' with DB.getForm(id).getPhoneNum ==
         // 8039002322L
-        assertTrue("Did not add to database", false);
+        assertTrue("Did not add to database", AttorneyForm.getForm(af.getFormId()).getPhoneNum() == 8039002322L);
     }
 }
