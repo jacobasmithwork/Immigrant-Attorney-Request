@@ -2,6 +2,7 @@ package group13;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -79,16 +80,22 @@ public class ReviewController{
         }
     }
 
-
     @FXML
     public void btnSubmit(ActionEvent event){
-        if((comment.getText() != null)){
-            ArrayList<String> notes = new ArrayList<>(Arrays.asList(comment.getText()));
-            form.setComments(notes);
-        }
 
-        form.sendToWf(2);
-        System.out.println("Review Submitted");
+        //LinkedList<Integer> check = Workflow.getApproveQueue();
+
+        //if(!check.isEmpty()){
+            //if(check.contains(Integer.valueOf(form.getFormId()))){
+
+                if(comment.getText() != null){
+                    ArrayList<String> notes = new ArrayList<>(Arrays.asList(comment.getText()));
+                    form.setComments(notes);
+                }
+
+                form.sendToWf(2);
+                System.out.println("Review Submitted");
+            //} 
+        //}
     }
-
 }
