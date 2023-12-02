@@ -83,19 +83,13 @@ public class ReviewController{
     @FXML
     public void btnSubmit(ActionEvent event){
 
-        //LinkedList<Integer> check = Workflow.getApproveQueue();
+        if(comment.getText() != null){
+            ArrayList<String> notes = new ArrayList<>(Arrays.asList(comment.getText()));
+            form.setComments(notes);
+        }
 
-        //if(!check.isEmpty()){
-            //if(check.contains(Integer.valueOf(form.getFormId()))){
-
-                if(comment.getText() != null){
-                    ArrayList<String> notes = new ArrayList<>(Arrays.asList(comment.getText()));
-                    form.setComments(notes);
-                }
-
-                form.sendToWf(2);
-                System.out.println("Review Submitted");
-            //} 
-        //}
+        form.sendToWf(2);
+        form = null;
+        System.out.println("Review Submitted");
     }
 }
