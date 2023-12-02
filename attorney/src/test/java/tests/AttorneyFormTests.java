@@ -83,4 +83,11 @@ public class AttorneyFormTests {
         // 8039002322L
         assertTrue("Did not add to database", AttorneyForm.getForm(af.getFormId()).getPhoneNum() == 8039002322L);
     }
+
+    @Test
+    public void testPurgeDb(){
+        af.sendToDb();
+        AttorneyForm.purgeDb();
+        assertTrue("Did not purge database", AttorneyForm.getDatabase().size() == 0);
+    }
 }
